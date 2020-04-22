@@ -4,18 +4,21 @@ import './index.css';
 
 import TodoItem from './TodoItem';
 
-const TodoList = () => {
+class TodoList extends React.Component {
 
-  return(
-    <div className="todo-container">
-      <h2 className="list-title">Todo list</h2>
-      <ul className="todo-list">
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
-      </ul>
-    </div>
-  )
-};
+  render() {
+
+    return(
+      <div className="todo-container">
+        <h2 className="list-title">Todo list</h2>
+        <ul className="todo-list">
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+        </ul>
+      </div>
+    )
+  }
+}
 
 export default TodoList;
