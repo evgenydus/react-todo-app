@@ -1,0 +1,11 @@
+.todo-container {
+  margin-top: 20px;
+}
+
+.list-title {
+  margin-bottom: 20px;
+}
+
+.todo-list {
+  list-style: none;
+}
