@@ -24,8 +24,13 @@
   flex-basis: 5%;
   font-size: 18px;
   max-width: 20px;
+  transition: .25s;
 }
 
 .remove-button:hover {
   color: #f52e39;
+}
+
+.done {
+  text-decoration: line-through;
 }

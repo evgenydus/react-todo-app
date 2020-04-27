@@ -5,18 +5,22 @@ import './index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-class TodoItem extends React.Component {
+const TodoItem = ({ onChange, todo }) => {
+  const textStyles = ['todo-text']
+  if (todo.isCompleted) textStyles.push('done');
 
-  render() {
-
-    return(
-      <li className="todo-item">
-        <input className="checkbox" type="checkbox" />
-        <div className="todo-text">new one</div>
-        <FontAwesomeIcon className="remove-button" icon={faTrashAlt} />
-      </li>
-    )
-  }
+  return (
+    <li className="todo-item">
+      <input
+        checked={todo.isCompleted}
+        className="checkbox"
+        onChange={() => onChange(todo.id)}
+        type="checkbox"
+      />
+      <div className={textStyles.join(' ')}>{todo.text}</div>
+      <FontAwesomeIcon className="remove-button" icon={faTrashAlt} />
+    </li>
+  )
 }
 
 export default TodoItem;

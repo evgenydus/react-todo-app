@@ -5,19 +5,16 @@ import './index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-class AddTodo extends React.Component {
+const AddTodo = () => {
 
-  render() {
-
-    return(
-      <div className="input-container">
-        <input className="input" type="text"/>
-        <button className="add-button">
-          <FontAwesomeIcon icon={faPlus} />
-        </button>
-      </div>
-    )
-  }
+  return (
+    <div className="input-container">
+      <input className="input" type="text"/>
+      <button className="add-button">
+        <FontAwesomeIcon icon={faPlus}/>
+      </button>
+    </div>
+  )
 }
 
 export default AddTodo;

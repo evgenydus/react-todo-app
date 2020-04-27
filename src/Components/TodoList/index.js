@@ -4,21 +4,20 @@ import './index.css';
 
 import TodoItem from './TodoItem';
 
-class TodoList extends React.Component {
+const TodoList = ({ onToggle, todos }) => {
 
-  render() {
-
-    return(
-      <div className="todo-container">
-        <h2 className="list-title">Todo list</h2>
-        <ul className="todo-list">
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-        </ul>
-      </div>
-    )
-  }
+  return (
+    <div className="todo-container">
+      <h2 className="list-title">Todo list</h2>
+      <ul className="todo-list">
+        {todos.map((todo) => {
+          return (
+            <TodoItem key={todo.id} onChange={onToggle} todo={todo} />
+          )
+        })}
+      </ul>
+    </div>
+  )
 }
 
 export default TodoList;
