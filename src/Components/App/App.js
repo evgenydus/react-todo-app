@@ -20,19 +20,21 @@ class App extends Component {
   }
 
   toggleTodo(id) {
-    this.setState(
-      this.state.todos.map((todo) => {
-        if (todo.id === id) {
-          todo.isCompleted = !todo.isCompleted
+    this.setState(prevState => ({
+      todos: prevState.todos.map(x => {
+        if (x.id !== id) return x
+
+        return {
+          ...x,
+          isCompleted: !x.isCompleted,
         }
-        return todo
-      }),
-    )
+      })
+    }))
   }
 
   removeTodo(id) {
-    this.setState((prevState) => {
-      return prevState.todos.filter((todo) => todo.id !== id)
+    this.setState(prevState => {
+      return { todos: prevState.todos.filter(x => x.id !== id)}
     })
   }
 
