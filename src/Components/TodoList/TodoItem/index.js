@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-import './index.css';
+import './index.css'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
-const TodoItem = ({ onChange, todo }) => {
+const TodoItem = ({ onChange, removeTodo, todo }) => {
   const textStyles = ['todo-text']
-  if (todo.isCompleted) textStyles.push('done');
+  if (todo.isCompleted) textStyles.push('done')
 
   return (
     <li className="todo-item">
@@ -18,9 +18,13 @@ const TodoItem = ({ onChange, todo }) => {
         type="checkbox"
       />
       <div className={textStyles.join(' ')}>{todo.text}</div>
-      <FontAwesomeIcon className="remove-button" icon={faTrashAlt} />
+      <FontAwesomeIcon
+        className="remove-button"
+        icon={faTrashAlt}
+        onClick={() => removeTodo(todo.id)}
+      />
     </li>
   )
 }
 
-export default TodoItem;
+export default TodoItem
