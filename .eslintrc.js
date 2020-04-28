@@ -18,6 +18,7 @@ module.exports = {
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
     "react/prop-types": ["off"],
     "no-param-reassign": ["error", { "props": false }],
+    "no-return-assign": ["off"],
     "max-len": [
       "warn",
       {

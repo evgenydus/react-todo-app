@@ -21,6 +21,7 @@ class App extends Component {
 
   toggleTodo(id) {
     this.setState(
+      // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
       this.state.todos.map((todo) => {
         if (todo.id === id) {
           todo.isCompleted = !todo.isCompleted
@@ -32,7 +33,7 @@ class App extends Component {
 
   removeTodo(id) {
     this.setState((prevState) => {
-      return prevState.todos.filter((todo) => todo.id !== id)
+      return (prevState.todos = prevState.todos.filter((todo) => todo.id !== id))
     })
   }
 
