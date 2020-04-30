@@ -5,6 +5,31 @@
   padding-bottom: 10px;
   padding-top: 10px;
 }
+.slide-bottom {
+  animation: slide-bottom .3s cubic-bezier(.25, .46, .45, .94) both;
+}
+
+@keyframes slide-bottom {
+  0% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.slide-top {
+  animation: slide-top .3s cubic-bezier(.25, .46, .45, .94) both;
+}
+
+@keyframes slide-top {
+  0% {
+    transform: translateY(50px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 
 .checkbox {
   cursor: pointer;

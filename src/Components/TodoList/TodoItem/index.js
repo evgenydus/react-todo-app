@@ -10,7 +10,8 @@ const TodoItem = ({ onChange, removeTodo, todo }) => {
   if (todo.isCompleted) textStyles.push('done')
 
   return (
-    <li className="todo-item">
+    // TODO: Fix animation on adding todo
+    <li className={`todo-item ${todo.isCompleted ? 'slide-bottom' : 'slide-top'}`}>
       <input
         checked={todo.isCompleted}
         className="checkbox"

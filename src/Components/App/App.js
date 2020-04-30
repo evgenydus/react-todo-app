@@ -11,10 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      todos: [
-        { id: 1, text: 'new todo', isCompleted: false },
-        { id: 2, text: 'second todo', isCompleted: false },
-      ],
+      todos: [],
     }
 
     this.toggleTodo = this.toggleTodo.bind(this)
@@ -49,7 +46,7 @@ class App extends Component {
         isCompleted: false,
       }
 
-      return { todos: prevState.todos.concat(newTodo) }
+      return { todos: [newTodo, ...prevState.todos] }
     })
   }
 
