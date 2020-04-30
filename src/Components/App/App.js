@@ -20,20 +20,21 @@ class App extends Component {
   }
 
   toggleTodo(id) {
-    this.setState(
-      // eslint-disable-next-line react/destructuring-assignment,react/no-access-state-in-setstate
-      this.state.todos.map((todo) => {
-        if (todo.id === id) {
-          todo.isCompleted = !todo.isCompleted
+    this.setState((prevState) => ({
+      todos: prevState.todos.map((todo) => {
+        if (todo.id !== id) return todo
+
+        return {
+          ...todo,
+          isCompleted: !todo.isCompleted,
         }
-        return todo
       }),
-    )
+    }))
   }
 
   removeTodo(id) {
     this.setState((prevState) => {
-      return (prevState.todos = prevState.todos.filter((todo) => todo.id !== id))
+      return { todos: prevState.todos.filter((todo) => todo.id !== id) }
     })
   }
 
