@@ -5,6 +5,8 @@ import './App.css'
 import AddTodo from '../AddTodo'
 import TodoList from '../TodoList'
 
+const noTodoText = 'You have nothing to do!'
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -17,6 +19,7 @@ class App extends Component {
 
     this.toggleTodo = this.toggleTodo.bind(this)
     this.removeTodo = this.removeTodo.bind(this)
+    this.addTodo = this.addTodo.bind(this)
   }
 
   toggleTodo(id) {
@@ -38,13 +41,29 @@ class App extends Component {
     })
   }
 
+  addTodo(text) {
+    this.setState((prevState) => {
+      const newTodo = {
+        id: prevState.todos.length + 1,
+        text,
+        isCompleted: false,
+      }
+
+      return { todos: prevState.todos.concat(newTodo) }
+    })
+  }
+
   render() {
     const { todos } = this.state
 
     return (
       <div className="App">
-        <AddTodo />
-        <TodoList onToggle={this.toggleTodo} removeTodo={this.removeTodo} todos={todos} />
+        <AddTodo addTodo={this.addTodo} />
+        {todos.length ? (
+          <TodoList onToggle={this.toggleTodo} removeTodo={this.removeTodo} todos={todos} />
+        ) : (
+          <p className="no-todo-text">{noTodoText}</p>
+        )}
       </div>
     )
   }
