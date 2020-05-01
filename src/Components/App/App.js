@@ -4,19 +4,31 @@ import './App.css'
 
 import AddTodo from '../AddTodo'
 import TodoList from '../TodoList'
+import Loader from '../TodoList/Loader'
 
-const noTodoText = 'You have nothing to do!'
+const todoPlaceholderUrl = 'https://jsonplaceholder.typicode.com/todos?_limit=5'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       todos: [],
+      isLoading: true,
     }
 
     this.toggleTodo = this.toggleTodo.bind(this)
     this.removeTodo = this.removeTodo.bind(this)
     this.addTodo = this.addTodo.bind(this)
+  }
+
+  componentDidMount() {
+    fetch(todoPlaceholderUrl)
+      .then((response) => response.json())
+      .then((todos) => {
+        setTimeout(() => {
+          this.setState({ todos, isLoading: false })
+        }, 2000)
+      })
   }
 
   toggleTodo(id) {
@@ -26,7 +38,7 @@ class App extends Component {
 
         return {
           ...todo,
-          isCompleted: !todo.isCompleted,
+          completed: !todo.completed,
         }
       }),
     }))
@@ -42,8 +54,8 @@ class App extends Component {
     this.setState((prevState) => {
       const newTodo = {
         id: prevState.todos.length + 1,
-        text,
-        isCompleted: false,
+        title: text,
+        completed: false,
       }
 
       return { todos: [newTodo, ...prevState.todos] }
@@ -51,15 +63,15 @@ class App extends Component {
   }
 
   render() {
-    const { todos } = this.state
+    const { todos, isLoading } = this.state
 
     return (
       <div className="App">
         <AddTodo addTodo={this.addTodo} />
-        {todos.length ? (
-          <TodoList onToggle={this.toggleTodo} removeTodo={this.removeTodo} todos={todos} />
+        {isLoading ? (
+          <Loader />
         ) : (
-          <p className="no-todo-text">{noTodoText}</p>
+          <TodoList onToggle={this.toggleTodo} removeTodo={this.removeTodo} todos={todos} />
         )}
       </div>
     )

@@ -6,3 +6,9 @@
 .todo-list {
   list-style: none;
 }
+
+.no-todo-text {
+  font-size: 30px;
+  margin-top: 80px;
+  text-align: center;
+}
