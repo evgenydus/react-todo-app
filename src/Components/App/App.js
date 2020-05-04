@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import './App.css'
 
@@ -6,15 +8,13 @@ import AddTodo from '../AddTodo'
 import TodoList from '../TodoList'
 import Loader from '../TodoList/Loader'
 
+import { changeInputValue, changeLoading, changeTodos } from '../../Store/actions'
+
 const todoPlaceholderUrl = 'https://jsonplaceholder.typicode.com/todos?_limit=5'
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      todos: [],
-      isLoading: true,
-    }
 
     this.toggleTodo = this.toggleTodo.bind(this)
     this.removeTodo = this.removeTodo.bind(this)
@@ -26,48 +26,51 @@ class App extends Component {
       .then((response) => response.json())
       .then((todos) => {
         setTimeout(() => {
-          this.setState({ todos, isLoading: false })
-        }, 2000)
+          this.props.changeTodos(todos)
+          this.props.changeLoading(false)
+        }, 1000)
       })
   }
 
   toggleTodo(id) {
-    this.setState((prevState) => ({
-      todos: prevState.todos.map((todo) => {
-        if (todo.id !== id) return todo
+    const newTodoList = this.props.todos.map((todo) => {
+      if (todo.id !== id) return todo
 
-        return {
-          ...todo,
-          completed: !todo.completed,
-        }
-      }),
-    }))
+      return {
+        ...todo,
+        completed: !todo.completed,
+      }
+    })
+
+    this.props.changeTodos(newTodoList)
   }
 
   removeTodo(id) {
-    this.setState((prevState) => {
-      return { todos: prevState.todos.filter((todo) => todo.id !== id) }
-    })
+    const newTodoList = this.props.todos.filter((todo) => todo.id !== id)
+    this.props.changeTodos(newTodoList)
   }
 
   addTodo(text) {
-    this.setState((prevState) => {
-      const newTodo = {
-        id: prevState.todos.length + 1,
-        title: text,
-        completed: false,
-      }
+    const newTodo = {
+      id: this.props.todos.length + 1,
+      title: text,
+      completed: false,
+    }
+    const newTodoList = [newTodo, ...this.props.todos]
 
-      return { todos: [newTodo, ...prevState.todos] }
-    })
+    this.props.changeTodos(newTodoList)
   }
 
   render() {
-    const { todos, isLoading } = this.state
+    const { todos, isLoading, inputValue, changeInputValue } = this.props
 
     return (
       <div className="App">
-        <AddTodo addTodo={this.addTodo} />
+        <AddTodo
+          addTodo={this.addTodo}
+          changeInputValue={changeInputValue}
+          inputValue={inputValue}
+        />
         {isLoading ? (
           <Loader />
         ) : (
@@ -78,4 +81,20 @@ class App extends Component {
   }
 }
 
-export default App
+const putStateToProps = (state) => {
+  return {
+    todos: state.todos,
+    isLoading: state.isLoading,
+    inputValue: state.inputValue,
+  }
+}
+
+const putActionsToProps = (dispatch) => {
+  return {
+    changeInputValue: bindActionCreators(changeInputValue, dispatch),
+    changeLoading: bindActionCreators(changeLoading, dispatch),
+    changeTodos: bindActionCreators(changeTodos, dispatch),
+  }
+}
+
+export default connect(putStateToProps, putActionsToProps)(App)
