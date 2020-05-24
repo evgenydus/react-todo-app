@@ -52,8 +52,9 @@ class App extends Component {
 
   addTodo(text) {
     this.setState((prevState) => {
+      const newId = Date.now().toString()
       const newTodo = {
-        id: prevState.todos.length + 1,
+        id: newId,
         title: text,
         completed: false,
       }

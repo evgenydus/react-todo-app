@@ -12,21 +12,21 @@ const TodoList = ({ onToggle, removeTodo, todos }) => {
       <h2 className="list-title">Todo list:</h2>
       <ul className="todo-list">
         {todos.map((todo) => {
-          if (!todo.completed) {
-            return (
+          return (
+            !todo.completed && (
               <TodoItem key={todo.id} onChange={onToggle} removeTodo={removeTodo} todo={todo} />
             )
-          }
+          )
         })}
       </ul>
       <h2 className="list-title">Completed:</h2>
       <ul className="todo-list">
         {todos.map((todo) => {
-          if (todo.completed) {
-            return (
+          return (
+            todo.completed && (
               <TodoItem key={todo.id} onChange={onToggle} removeTodo={removeTodo} todo={todo} />
             )
-          }
+          )
         })}
       </ul>
     </div>
